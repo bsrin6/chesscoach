@@ -55,3 +55,18 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
     observer.observe(element);
   });
 }
+
+const header = document.querySelector('.header');
+const scrollTopButton = document.querySelector('.scroll-top');
+function updateScrollControls() {
+  header.classList.toggle('is-scrolled', window.scrollY > 20);
+  scrollTopButton.hidden = window.scrollY < 300;
+}
+window.addEventListener('scroll', updateScrollControls, { passive: true });
+window.addEventListener('pageshow', updateScrollControls);
+updateScrollControls();
+scrollTopButton.addEventListener('click', () => {
+  closeMenu();
+  document.querySelector('.brand').focus({ preventScroll: true });
+  window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+});

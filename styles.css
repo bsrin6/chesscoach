@@ -17,3 +17,12 @@
 .about-visual img{object-position:center}
 @media(min-width:1500px){.hero-photo{background-position:center 72%}}
 @media(max-width:760px){.hero-photo{background-position:65% center}.about-visual img{object-position:center}}
+
+/* Persistent navigation and scroll-to-top control. */
+.header{position:fixed;transition:background .2s,box-shadow .2s}
+.header.is-scrolled{background:var(--navy);box-shadow:0 4px 20px #0002}
+html{scroll-padding-top:120px}
+.scroll-top{position:fixed;right:24px;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:20;display:grid;place-items:center;width:48px;height:48px;border-radius:4px;background:var(--gold);color:var(--ink);font-size:27px;line-height:1;box-shadow:0 4px 20px #0003;transition:background .2s,transform .2s}
+.scroll-top[hidden]{display:none}
+.scroll-top:hover{background:#f0d59b;transform:translateY(-3px)}
+@media(max-width:760px){html{scroll-padding-top:98px}.scroll-top{right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px))}}
