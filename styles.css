@@ -26,3 +26,33 @@ html{scroll-padding-top:120px}
 .scroll-top[hidden]{display:none}
 .scroll-top:hover{background:#f0d59b;transform:translateY(-3px)}
 @media(max-width:760px){html{scroll-padding-top:98px}.scroll-top{right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px))}}
+
+/* Hero photo carousel. */
+.hero-photo{opacity:0;transition:opacity 1s ease}
+.hero-photo.is-active{opacity:1}
+.hero-photo.hero-tournament{background-image:url('assets/chess-student.jpeg');background-position:center 42%}
+.hero-photo.hero-ceremony{background-image:url('assets/chess-ceremony.jpeg');background-position:center 45%}
+.hero-carousel-controls{position:absolute;bottom:27px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:2px;z-index:2}
+.hero-carousel-controls button{width:32px;height:36px;background:transparent;display:grid;place-items:center;color:var(--gold);padding:0}
+.hero-carousel-controls button[data-slide]::after{content:'';width:8px;height:8px;border:1px solid var(--gold);border-radius:50%}
+.hero-carousel-controls button[aria-pressed=true]::after{background:var(--gold)}
+.hero-carousel-controls .carousel-pause{font-size:16px}
+@media(max-width:760px){.hero-carousel-controls{left:20px;transform:none;bottom:18px}}
+
+.contact-page .header{background:var(--navy)}
+.contact-main{padding-top:180px;padding-bottom:100px;display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;min-height:85vh}
+.contact-intro h1{font-size:72px}.contact-intro>p:not(.eyebrow){margin:24px 0}.contact-intro .text-link{margin-top:12px}
+.enquiry-form{padding:40px;background:#eeeae1;border:1px solid var(--line)}.enquiry-form h2{font-size:42px;margin-bottom:25px}
+.enquiry-form label{display:block;font-size:14px;font-weight:500;margin:18px 0 7px}.enquiry-form input{width:100%;font:inherit;background:var(--paper);border:1px solid #aaa99f;padding:12px;color:var(--ink);border-radius:3px}.enquiry-form input:focus{outline:2px solid #967438;outline-offset:2px}
+.form-note{font-size:12px;margin:20px 0}.form-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}#form-status{font-size:14px;margin-top:16px}.enquiry-form button:disabled{opacity:.65;cursor:wait}
+@media(max-width:760px){.contact-main{grid-template-columns:1fr;gap:40px;padding-top:130px;padding-bottom:65px}.contact-intro h1{font-size:58px}.enquiry-form{padding:25px}}
+
+.whatsapp-float{position:fixed;right:24px;bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:20;display:flex;align-items:center;gap:9px;padding:12px 16px;border-radius:30px;background:#146c3a;color:#fff;box-shadow:0 4px 20px #0003;font-size:13px;font-weight:600;transition:background .2s,transform .2s}.whatsapp-float:hover{background:#0d542c;transform:translateY(-2px)}
+@media(max-width:760px){.whatsapp-float{right:18px;bottom:calc(80px + env(safe-area-inset-bottom,0px));padding:12px}.whatsapp-float span{display:none}}
+
+/* Monthly coaching plans. */
+.pricing{background:var(--paper)}.pricing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.price-card{display:flex;flex-direction:column;padding:30px;background:var(--navy);border:1px solid #9b7b41;border-radius:8px;color:#faf0d5}.price-card h3{font-size:30px;line-height:1.15}.price-card .plan-description{color:#bdc4c7;font-size:15px;margin:16px 0 25px;min-height:105px}.plan-fee{padding:20px;border:1px solid #74603d;border-radius:5px;margin-top:auto;margin-bottom:24px}.plan-fee>span{font-size:11px;letter-spacing:1.3px;color:#acb4b9}.plan-fee p{color:#bdc4c7;font-size:14px;margin-top:8px}.plan-fee strong{font-size:32px;color:#f5dfae;font-weight:600}.price-card .button{width:100%}.price-card .plan-terms{font-size:12px;line-height:1.6;color:#aeb7bd;margin-top:20px}
+@media(max-width:1050px){.pricing-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.pricing-grid{grid-template-columns:1fr}.price-card{padding:26px}.price-card .plan-description{min-height:0}}
+
+@media(min-width:761px){nav{gap:20px}.footer-main{gap:24px;flex-wrap:wrap}}

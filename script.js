@@ -22,22 +22,6 @@ window.matchMedia('(min-width: 761px)').addEventListener('change', event => {
   if (event.matches) closeMenu();
 });
 
-// Demo only: no messages are sent and no visitor information is collected.
-// Replace this behavior with your email or WhatsApp link when ready.
-const contactDialog = document.querySelector('#contact-dialog');
-document.querySelectorAll('[data-contact]').forEach(button => {
-  button.addEventListener('click', () => {
-    closeMenu();
-    contactDialog.showModal();
-  });
-});
-contactDialog.querySelectorAll('.dialog-close, .dialog-done').forEach(button => {
-  button.addEventListener('click', () => contactDialog.close());
-});
-contactDialog.addEventListener('click', event => {
-  const rect = contactDialog.getBoundingClientRect();
-  if (event.target === contactDialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) contactDialog.close();
-});
 document.querySelector('#year').textContent = new Date().getFullYear();
 
 if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -70,3 +54,64 @@ scrollTopButton.addEventListener('click', () => {
   document.querySelector('.brand').focus({ preventScroll: true });
   window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
 });
+
+const hero = document.querySelector('.hero');
+if (hero) {
+const heroSlides = [...hero.querySelectorAll('.hero-photo')];
+const slideButtons = [...hero.querySelectorAll('[data-slide]')];
+const pauseButton = hero.querySelector('.carousel-pause');
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+let currentSlide = 0;
+let slideshowPaused = motionPreference.matches;
+let slideshowTimer;
+function showHeroSlide(index) {
+  currentSlide = index;
+  heroSlides.forEach((slide, i) => {
+    slide.classList.toggle('is-active', i === index);
+    slide.setAttribute('aria-hidden', String(i !== index));
+    slideButtons[i].setAttribute('aria-pressed', String(i === index));
+  });
+}
+function scheduleSlideshow() {
+  clearInterval(slideshowTimer);
+  pauseButton.textContent = slideshowPaused ? '▶' : 'Ⅱ';
+  pauseButton.setAttribute('aria-label', slideshowPaused ? 'Play slideshow' : 'Pause slideshow');
+  if (!slideshowPaused && !document.hidden && !hero.matches(':hover') && !hero.contains(document.activeElement)) {
+    slideshowTimer = setInterval(() => showHeroSlide((currentSlide + 1) % heroSlides.length), 6000);
+  }
+}
+slideButtons.forEach((button, index) => button.addEventListener('click', () => {
+  showHeroSlide(index);
+  scheduleSlideshow();
+}));
+pauseButton.addEventListener('click', () => {
+  slideshowPaused = !slideshowPaused;
+  scheduleSlideshow();
+});
+hero.addEventListener('mouseenter', scheduleSlideshow);
+hero.addEventListener('mouseleave', scheduleSlideshow);
+hero.addEventListener('focusin', scheduleSlideshow);
+hero.addEventListener('focusout', () => setTimeout(scheduleSlideshow, 0));
+document.addEventListener('visibilitychange', scheduleSlideshow);
+motionPreference.addEventListener('change', event => {
+  slideshowPaused = event.matches;
+  scheduleSlideshow();
+});
+scheduleSlideshow();
+
+}
+
+// Prepare a WhatsApp draft only. Visitors review and send it in WhatsApp.
+const whatsappLink = document.querySelector('.whatsapp-float');
+const enquiryForm = document.querySelector('#enquiry-form');
+function updateWhatsAppDraft() {
+  const value = name => enquiryForm?.elements.namedItem(name)?.value.trim() || '';
+  const message = `Hello, I am interested in chess coaching.\nName: ${value('name')}\nPhone number: ${value('phone')}\nEmail: ${value('email')}`;
+  whatsappLink.href = 'https://wa.me/919966830476?text=' + encodeURIComponent(message);
+}
+if (whatsappLink) {
+  whatsappLink.addEventListener('click', updateWhatsAppDraft);
+  enquiryForm?.addEventListener('input', updateWhatsAppDraft);
+  enquiryForm?.addEventListener('reset', () => setTimeout(updateWhatsAppDraft, 0));
+  updateWhatsAppDraft();
+}
