@@ -56,3 +56,14 @@ html{scroll-padding-top:120px}
 @media(max-width:760px){.pricing-grid{grid-template-columns:1fr}.price-card{padding:26px}.price-card .plan-description{min-height:0}}
 
 @media(min-width:761px){nav{gap:20px}.footer-main{gap:24px;flex-wrap:wrap}}
+
+/* Class availability strip above the fixed navigation. */
+.info-bar{background:var(--gold);color:var(--ink)}
+.info-bar-inner{min-height:38px;display:flex;align-items:center;justify-content:center;gap:20px;padding-block:5px;font-size:12px;line-height:1.4}
+.info-bar-inner>a{display:inline-flex;align-items:center;gap:12px;padding:4px 12px;border-radius:3px;background:var(--navy);color:var(--paper);font-size:11px;font-weight:600;white-space:nowrap}
+.info-bar-inner>a:hover{background:#263b49}
+html{scroll-padding-top:158px}
+.hero-content{padding-top:233px}.contact-main{padding-top:218px}
+@media(min-width:1500px){.hero-content{padding-top:258px}}
+@media(max-width:1050px){.hero-content{padding-top:218px}}
+@media(max-width:760px){.info-bar-inner{gap:10px;font-size:11px;width:calc(100% - 24px)}.info-bar-inner>a{font-size:10px;padding:4px 8px;gap:6px}nav{top:119px}html{scroll-padding-top:136px}.hero-content{padding-top:188px}.contact-main{padding-top:168px}}
